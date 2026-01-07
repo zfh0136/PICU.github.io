@@ -1,0 +1,51 @@
+# ============================================
+# PICU 数据分析项目 - 环境依赖
+# ============================================
+
+# 核心数据处理库
+pandas>=1.5.0            # 数据操作和分析
+numpy>=1.23.0            # 数值计算
+scipy>=1.9.0             # 科学计算
+
+# 数据可视化库
+matplotlib>=3.6.0        # 基础绘图
+seaborn>=0.12.0          # 统计可视化
+plotly>=5.11.0           # 交互式图表
+
+# 机器学习库
+scikit-learn>=1.2.0      # 机器学习算法
+imbalanced-learn>=0.10.0 # 处理不平衡数据
+xgboost>=1.7.0           # XGBoost算法
+lightgbm>=3.3.0          # LightGBM算法
+
+# 统计分析与假设检验
+statsmodels>=0.13.0      # 统计模型
+pingouin>=0.5.0          # 简化统计检验
+
+# 数据探索性分析
+ydata-profiling>=4.0.0   # 自动生成数据分析报告 (替代pandas-profiling)
+missingno>=0.5.0         # 缺失值可视化
+
+# 网页开发
+streamlit>=1.20.0        # 推荐：快速创建数据应用（最简单）
+# flask>=2.3.0           # 备选：传统网页框架（需要更多代码）
+# dash>=2.9.0            # 备选：交互式仪表板
+
+# Jupyter相关
+jupyter>=1.0.0           # Jupyter Notebook
+jupyterlab>=3.6.0        # Jupyter Lab
+ipywidgets>=8.0.0        # 交互式控件
+nbconvert>=7.2.0         # 笔记本转换
+
+# 开发工具
+jupyterlab_code_formatter>=1.5.0  # 代码格式化
+black>=23.0.0            # 代码格式化工具
+flake8>=6.0.0            # 代码检查
+
+# 其他实用库
+tqdm>=4.65.0             # 进度条
+joblib>=1.2.0            # 模型保存和加载
+openpyxl>=3.1.0          # 读写Excel文件
+
+# 用于LaTeX输出的库
+tabulate>=0.9.0          # 将表格转换为LaTeX格式
