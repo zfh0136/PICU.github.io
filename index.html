@@ -263,14 +263,6 @@
             margin: 0 5px;
             font-weight: 600;
         }
-        .warning {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            color: #856404;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -415,11 +407,7 @@
         
         <div class="section">
             <h2><i class="fas fa-chart-line"></i> 可视化图表</h2>
-            <p>以下图表展示了模型评估的关键结果。图片存储在<code>./figures/model_evaluation/</code>目录下：</p>
-            
-            <div class="warning">
-                <p><i class="fas fa-info-circle"></i> <strong>GitHub部署说明：</strong>请确保图片文件已上传到GitHub仓库的<code>./figures/model_evaluation/</code>目录下，与HTML文件在同一仓库中。</p>
-            </div>
+            <p>以下图表展示了模型评估的关键结果：</p>
             
             <div class="figure-grid">
                 <div class="figure-item" id="figure-1">
@@ -465,20 +453,6 @@
                     </div>
                     <p>随机森林模型的特征重要性排名</p>
                 </div>
-            </div>
-            
-            <div class="highlight">
-                <p><strong><i class="fas fa-folder-open"></i> 文件结构说明：</strong>GitHub仓库的文件结构应如下所示：</p>
-                <pre style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; overflow-x: auto;">
-项目仓库/
-├── index.html                (这个HTML文件)
-├── README.md                 (项目说明文档)
-└── figures/                  (图片目录)
-    └── model_evaluation/     (模型评估图片)
-        ├── roc_curves_all_models.png
-        ├── confusion_matrices.png
-        ├── model_performance_comparison.png
-        └── feature_importance.png</pre>
             </div>
         </div>
         
@@ -587,11 +561,7 @@
         <footer>
             <p><strong>© 2024 PICU死亡率预测分析系统 | 医学数据分析项目</strong></p>
             <p><i class="fas fa-exclamation-triangle"></i> 本报告为学术研究用途 | 临床决策请结合专业医生判断</p>
-            <p>报告生成时间：2026年01月07日 | 版本：v2.0 | GitHub部署版本</p>
-            <p style="font-size:0.8rem;color:#999; margin-top: 15px;">
-                <i class="fas fa-code-branch"></i> 项目仓库: https://github.com/yourusername/PICU_Data_Analysis_Project |
-                <i class="fas fa-envelope"></i> 联系我们: example@email.com
-            </p>
+            <p>报告生成时间：2026年01月07日 | 版本：v2.0</p>
         </footer>
     </div>
     
