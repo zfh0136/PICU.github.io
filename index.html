@@ -125,6 +125,7 @@
             transition: all 0.3s ease;
             border: 1px solid var(--border-color);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
         }
         .figure-item:hover {
             transform: translateY(-8px);
@@ -165,6 +166,35 @@
         .img-placeholder i {
             font-size: 3rem;
             color: var(--primary-color);
+        }
+        .img-error {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background: #ffeaea;
+            border: 1px solid #ffb3b3;
+            border-radius: 8px;
+            color: #d32f2f;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .img-error.show {
+            display: block;
+        }
+        .img-loading {
+            display: none;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        .img-loading.show {
+            display: flex;
         }
         .metrics { 
             display: grid;
@@ -392,35 +422,47 @@
             </div>
             
             <div class="figure-grid">
-                <div class="figure-item">
+                <div class="figure-item" id="figure-1">
                     <h3><i class="fas fa-chart-curve"></i> ROC曲线对比</h3>
-                    <img src="./figures/model_evaluation/roc_curves_all_models.png" 
-                         alt="ROC曲线对比图 - 显示所有模型的ROC曲线" 
-                         onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\"img-placeholder\"><i class=\"fas fa-image\"></i>ROC曲线图片加载失败<br>请确保图片文件位于: ./figures/model_evaluation/roc_curves_all_models.png</div>';">
+                    <img id="img-roc" src="./figures/model_evaluation/roc_curves_all_models.png" 
+                         alt="ROC曲线对比图 - 显示所有模型的ROC曲线">
+                    <div class="img-error" id="error-roc">
+                        <i class="fas fa-exclamation-triangle"></i> ROC曲线图片加载失败<br>
+                        请确保图片文件位于: ./figures/model_evaluation/roc_curves_all_models.png
+                    </div>
                     <p>所有模型的ROC曲线对比，曲线下面积(AUC)越大表示模型性能越好</p>
                 </div>
                 
-                <div class="figure-item">
+                <div class="figure-item" id="figure-2">
                     <h3><i class="fas fa-th"></i> 混淆矩阵</h3>
-                    <img src="./figures/model_evaluation/confusion_matrices.png" 
-                         alt="混淆矩阵 - 显示各模型的分类结果" 
-                         onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\"img-placeholder\"><i class=\"fas fa-image\"></i>混淆矩阵图片加载失败<br>请确保图片文件位于: ./figures/model_evaluation/confusion_matrices.png</div>';">
+                    <img id="img-confusion" src="./figures/model_evaluation/confusion_matrices.png" 
+                         alt="混淆矩阵 - 显示各模型的分类结果">
+                    <div class="img-error" id="error-confusion">
+                        <i class="fas fa-exclamation-triangle"></i> 混淆矩阵图片加载失败<br>
+                        请确保图片文件位于: ./figures/model_evaluation/confusion_matrices.png
+                    </div>
                     <p>各模型的混淆矩阵，展示真阳性、假阳性、真阴性、假阴性的分布</p>
                 </div>
                 
-                <div class="figure-item">
+                <div class="figure-item" id="figure-3">
                     <h3><i class="fas fa-chart-bar"></i> 模型性能对比</h3>
-                    <img src="./figures/model_evaluation/model_performance_comparison.png" 
-                         alt="模型性能对比图 - 显示各指标对比" 
-                         onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\"img-placeholder\"><i class=\"fas fa-image\"></i>模型性能对比图片加载失败<br>请确保图片文件位于: ./figures/model_evaluation/model_performance_comparison.png</div>';">
+                    <img id="img-comparison" src="./figures/model_evaluation/model_performance_comparison.png" 
+                         alt="模型性能对比图 - 显示各指标对比">
+                    <div class="img-error" id="error-comparison">
+                        <i class="fas fa-exclamation-triangle"></i> 模型性能对比图片加载失败<br>
+                        请确保图片文件位于: ./figures/model_evaluation/model_performance_comparison.png
+                    </div>
                     <p>各模型在不同性能指标上的对比可视化</p>
                 </div>
                 
-                <div class="figure-item">
+                <div class="figure-item" id="figure-4">
                     <h3><i class="fas fa-key"></i> 特征重要性</h3>
-                    <img src="./figures/model_evaluation/feature_importance.png" 
-                         alt="特征重要性图 - 显示最重要的特征" 
-                         onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\"img-placeholder\"><i class=\"fas fa-image\"></i>特征重要性图片加载失败<br>请确保图片文件位于: ./figures/model_evaluation/feature_importance.png</div>';">
+                    <img id="img-feature" src="./figures/model_evaluation/feature_importance.png" 
+                         alt="特征重要性图 - 显示最重要的特征">
+                    <div class="img-error" id="error-feature">
+                        <i class="fas fa-exclamation-triangle"></i> 特征重要性图片加载失败<br>
+                        请确保图片文件位于: ./figures/model_evaluation/feature_importance.png
+                    </div>
                     <p>随机森林模型的特征重要性排名</p>
                 </div>
             </div>
@@ -554,8 +596,105 @@
     </div>
     
     <script>
-        // 添加简单的交互效果
+        // 智能图片加载检测
         document.addEventListener('DOMContentLoaded', function() {
+            // 定义所有需要检测的图片
+            const images = [
+                { id: 'img-roc', errorId: 'error-roc', path: './figures/model_evaluation/roc_curves_all_models.png' },
+                { id: 'img-confusion', errorId: 'error-confusion', path: './figures/model_evaluation/confusion_matrices.png' },
+                { id: 'img-comparison', errorId: 'error-comparison', path: './figures/model_evaluation/model_performance_comparison.png' },
+                { id: 'img-feature', errorId: 'error-feature', path: './figures/model_evaluation/feature_importance.png' }
+            ];
+            
+            // 检查图片是否加载成功
+            function checkImageLoad(imgElement, errorElement, imgPath) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    
+                    img.onload = function() {
+                        console.log(`图片加载成功: ${imgPath}`);
+                        resolve(true);
+                    };
+                    
+                    img.onerror = function() {
+                        console.log(`图片加载失败: ${imgPath}`);
+                        resolve(false);
+                    };
+                    
+                    img.src = imgPath;
+                    
+                    // 设置超时检测
+                    setTimeout(() => {
+                        if (!img.complete) {
+                            console.log(`图片加载超时: ${imgPath}`);
+                            resolve(false);
+                        }
+                    }, 3000);
+                });
+            }
+            
+            // 检测所有图片
+            async function checkAllImages() {
+                for (const image of images) {
+                    const imgElement = document.getElementById(image.id);
+                    const errorElement = document.getElementById(image.errorId);
+                    
+                    if (!imgElement || !errorElement) continue;
+                    
+                    // 先隐藏错误信息
+                    errorElement.classList.remove('show');
+                    
+                    // 检查图片是否已加载
+                    if (imgElement.complete && imgElement.naturalWidth > 0) {
+                        console.log(`图片已缓存加载: ${image.path}`);
+                        continue;
+                    }
+                    
+                    // 检测图片加载状态
+                    const isLoaded = await checkImageLoad(imgElement, errorElement, image.path);
+                    
+                    if (!isLoaded) {
+                        // 显示错误信息
+                        errorElement.classList.add('show');
+                        
+                        // 可选：尝试重新加载
+                        setTimeout(() => {
+                            imgElement.src = image.path + '?t=' + new Date().getTime();
+                        }, 2000);
+                    }
+                }
+            }
+            
+            // 页面加载完成后立即检查
+            setTimeout(checkAllImages, 500);
+            
+            // 添加重新加载按钮功能
+            images.forEach(image => {
+                const errorElement = document.getElementById(image.errorId);
+                if (errorElement) {
+                    const reloadBtn = document.createElement('button');
+                    reloadBtn.innerHTML = '<i class="fas fa-redo"></i> 重新加载';
+                    reloadBtn.style.cssText = `
+                        margin-top: 10px;
+                        padding: 5px 15px;
+                        background: var(--primary-color);
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                    `;
+                    reloadBtn.onclick = function() {
+                        const imgElement = document.getElementById(image.id);
+                        if (imgElement) {
+                            errorElement.classList.remove('show');
+                            imgElement.src = image.path + '?t=' + new Date().getTime();
+                        }
+                    };
+                    errorElement.appendChild(reloadBtn);
+                }
+            });
+            
             // 为表格行添加点击效果
             const tableRows = document.querySelectorAll('tbody tr');
             tableRows.forEach(row => {
@@ -574,9 +713,9 @@
                 yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', currentYear);
             }
             
-            // 图片加载状态检查
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
+            // 图片加载成功时添加边框
+            const allImages = document.querySelectorAll('.figure-item img');
+            allImages.forEach(img => {
                 img.addEventListener('load', function() {
                     this.style.border = '2px solid #34a853';
                 });
